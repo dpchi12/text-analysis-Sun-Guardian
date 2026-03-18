@@ -1,5 +1,4 @@
 # %%
-# ── Cell 1: Imports ──────────────────────────────────────────────────────────
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -7,7 +6,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import time
-
+from pathlib import Path
 from itertools import combinations
 from nltk.tokenize import RegexpTokenizer
 from nltk.corpus import stopwords
@@ -15,8 +14,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.decomposition import LatentDirichletAllocation
 
 # %%
-# ── Cell 2: Load & Preprocess ─────────────────────────────────────────────────
-df = pd.read_csv("../output/sun_tech_articles.csv")
+df = pd.read_csv(Path("output/sun_tech_articles.csv"))
 print(f"Loaded: {len(df):,} articles")
 
 tokenizer = RegexpTokenizer(r'\w+')
@@ -30,10 +28,9 @@ df['text'] = df['title'].fillna('') + ' ' + df['content'].fillna('')
 texts_tokenized = df['text'].apply(preprocess).tolist()
 texts_merged    = [' '.join(tokens) for tokens in texts_tokenized]
 
-print(f"Example doc (first 15 tokens): {texts_tokenized[0][:15]}")
+print(texts_tokenized[0][:15])
 
 # %%
-# ── Cell 3: Vectorize (TF) ───────────────────────────────────────────────────
 vectorizer = CountVectorizer(
     lowercase    = True,
     ngram_range  = (1, 1),
