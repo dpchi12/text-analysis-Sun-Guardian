@@ -1,0 +1,7 @@
+guardian/
+thesun.sqlite3
+output/
+__pycache__/
+.DS_Store
+.idea/
+.vscode/
